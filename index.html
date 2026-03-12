@@ -158,22 +158,95 @@
       margin-bottom: 4rem; opacity: 0.3;
     }
 
-    /* STAT CARDS */
+    /* =============================================
+       ABOUT — NEW LAYOUT
+       Desktop: photo + name left | text right
+       Then stats as a horizontal row below
+    ============================================= */
+    .about-wrapper {
+      display: block;
+      width: 100%;
+    }
+
+    /* Top part: photo+name on left, bio on right */
+    .about-top {
+      display: flex;
+      flex-direction: row;
+      gap: 3rem;
+      align-items: flex-start;
+      margin-bottom: 3rem;
+    }
+
+    /* Left column: photo + name stacked */
+    .about-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: 200px;
+    }
+    .about-left img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 50%;
+      border: 2px solid rgba(0,229,255,0.4);
+      box-shadow: 0 0 30px rgba(0,229,255,0.15);
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .about-left .about-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+
+    /* Right column: bio text */
+    .about-right {
+      flex: 1;
+    }
+    .about-right p {
+      font-size: 0.88rem;
+      line-height: 2;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+    .about-right p strong { color: var(--text); font-weight: 500; }
+
+    /* Bottom part: 4 stat cards in a row */
+    .about-stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      width: 100%;
+    }
     .stat-card {
-      padding: 1.25rem; border: 1px solid var(--border);
-      background: var(--card); position: relative; overflow: hidden; min-width: 0;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      background: var(--card);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
     }
     .stat-card::after {
-      content: ''; position: absolute; top: 0; left: 0;
-      width: 3px; height: 100%; background: var(--accent);
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 3px;
+      background: var(--accent);
     }
     .stat-num {
       font-family: 'Syne', sans-serif;
-      font-size: 2rem; font-weight: 800; color: var(--accent); line-height: 1;
+      font-size: 2rem; font-weight: 800;
+      color: var(--accent); line-height: 1;
     }
     .stat-label {
       font-size: 0.65rem; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--muted); margin-top: 0.4rem;
+      text-transform: uppercase; color: var(--muted); margin-top: 0.5rem;
     }
 
     /* SKILLS */
@@ -283,19 +356,24 @@
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* TABLET */
+    /* =============================================
+       TABLET (max 900px)
+    ============================================= */
     @media (max-width: 900px) {
       nav { padding: 1.2rem 2rem; }
       .nav-links { gap: 1.5rem; }
       section { padding: 4rem 2rem; }
       .hero { padding: 7rem 2rem 4rem; }
+      .about-stats-row { grid-template-columns: repeat(2, 1fr); }
       .skills-grid { grid-template-columns: 1fr 1fr; }
       .certs-grid  { grid-template-columns: 1fr 1fr; }
       .projects-grid { grid-template-columns: 1fr; }
       footer { padding: 1.5rem 2rem; flex-direction: column; gap: 0.5rem; }
     }
 
-    /* MOBILE */
+    /* =============================================
+       MOBILE (max 600px)
+    ============================================= */
     @media (max-width: 600px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
@@ -307,6 +385,31 @@
       .btn { text-align: center; width: 100%; }
       section { padding: 3rem 1.2rem; }
       .section-title { font-size: clamp(1.4rem, 7vw, 1.8rem); margin-bottom: 1.5rem; }
+
+      /* about — stack everything vertically on mobile */
+      .about-top {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      .about-left {
+        width: 100%;
+        align-items: center;
+      }
+      .about-left img {
+        width: 140px;
+        height: 140px;
+      }
+      .about-right {
+        width: 100%;
+      }
+      .about-right p { font-size: 0.84rem; }
+      .about-stats-row {
+        grid-template-columns: 1fr 1fr;
+      }
+      .stat-card { padding: 1rem; }
+      .stat-num { font-size: 1.6rem; }
+
       .skills-grid { grid-template-columns: 1fr; gap: 1rem; }
       .skill-group { padding: 1.25rem; }
       .projects-grid { grid-template-columns: 1fr; gap: 1rem; }
@@ -363,61 +466,60 @@
     </div>
   </section>
 
-  <!-- ABOUT — fully inline, no CSS classes on layout -->
+  <!-- ABOUT -->
   <section id="about">
     <div class="divider"></div>
+    <div class="section-label">// about me</div>
+    <h2 class="section-title">Engineer. Builder. Problem Solver.</h2>
 
-    <!-- Photo row -->
-    <div style="width:100%;display:flex;justify-content:center;margin-bottom:2rem;">
-      <img src="Ron Smiling.jpg" alt="Mugo Ron Munene"
-           style="width:160px;height:160px;object-fit:cover;object-position:center top;
-                  border-radius:50%;border:2px solid rgba(0,229,255,0.4);
-                  box-shadow:0 0 30px rgba(0,229,255,0.15);display:block;"/>
+    <div class="about-wrapper reveal">
+
+      <!-- Top: photo left, bio right -->
+      <div class="about-top">
+        <div class="about-left">
+          <img src="Ron Smiling.jpg" alt="Mugo Ron Munene" />
+          <span class="about-name">Mugo Ron Munene</span>
+        </div>
+        <div class="about-right">
+          <p>
+            I'm a <strong>mobile app developer</strong> passionate about building intuitive,
+            high-performance applications for Android and iOS. I love turning ideas into
+            products that people actually enjoy using.
+          </p>
+          <p>
+            On the networking side, I hold <strong>CCNA 1 &amp; 2 certifications</strong> from Cisco,
+            giving me deep knowledge of routing, switching, and network architecture.
+            As an <strong>IT Technician</strong>, I troubleshoot hardware, software,
+            and infrastructure challenges with a systematic approach.
+          </p>
+          <p>
+            I bring a rare combination of skills that lets me think about the full stack &mdash;
+            from the app on your phone down to the network it runs on.
+          </p>
+        </div>
+      </div>
+
+      <!-- Bottom: 4 stat cards in a row -->
+      <div class="about-stats-row">
+        <div class="stat-card">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Cisco Certs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Apps Shipped</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">&#8734;</div>
+          <div class="stat-label">Problems Solved</div>
+        </div>
+      </div>
+
     </div>
-
-    <!-- Text row -->
-    <div style="width:100%;max-width:720px;margin:0 auto 2.5rem auto;">
-      <div class="section-label">// about me</div>
-      <h2 class="section-title">Engineer.<br>Builder. Problem Solver.</h2>
-      <p style="font-size:0.88rem;line-height:2;color:var(--muted);margin-bottom:1.2rem;">
-        I'm a <strong style="color:var(--text);font-weight:500;">mobile app developer</strong>
-        passionate about building intuitive, high-performance applications for Android and iOS.
-        I love turning ideas into products that people actually enjoy using.
-      </p>
-      <p style="font-size:0.88rem;line-height:2;color:var(--muted);margin-bottom:1.2rem;">
-        On the networking side, I hold
-        <strong style="color:var(--text);font-weight:500;">CCNA 1 &amp; 2 certifications</strong>
-        from Cisco, giving me deep knowledge of routing, switching, and network architecture.
-        As an <strong style="color:var(--text);font-weight:500;">IT Technician</strong>,
-        I troubleshoot hardware, software, and infrastructure challenges with a systematic approach.
-      </p>
-      <p style="font-size:0.88rem;line-height:2;color:var(--muted);">
-        I bring a rare combination of skills that lets me think about the full stack &mdash;
-        from the app on your phone down to the network it runs on.
-      </p>
-    </div>
-
-    <!-- Stats row — 2x2 grid -->
-    <div style="width:100%;max-width:720px;margin:0 auto;
-                display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-      <div class="stat-card">
-        <div class="stat-num">3+</div>
-        <div class="stat-label">Years Experience</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">2</div>
-        <div class="stat-label">Cisco Certs</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">4</div>
-        <div class="stat-label">Apps Shipped</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">&#8734;</div>
-        <div class="stat-label">Problems Solved</div>
-      </div>
-    </div>
-
   </section>
 
   <!-- SKILLS -->
